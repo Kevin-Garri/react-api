@@ -19,7 +19,28 @@ function App() {
   const fetchPosts = () =>
     axios.get(`${baseApiUrl}/posts`).then((res) => setPosts(res.data));
 
+  const inputHandler = (e) => {
+    const { name, value } = e.target;
+    setFormData({ ...formData, [name]: value })
+  };
+
+  const submitHandler = (e) => {
+    e.preventDefault;
+    const tags = formData.tags.split(",").map((tag) => tag.trim());
+    const newPost = { ...formData, tags: tags };
+    axios.post(`${baseApiUrl}/posts`, newPost)
+      .then(res => {
+        fetchPosts()
+        setFormData(initialFormData)
+      })
+  }
+
+  //use effect di fetch post
+  useEffect(() => {
+    fetchPosts()
+  }, [])
+
   return
-};
+}
 
 export default App;
