@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import axios from ('axios')
+import axios from ('axios');
 
 function App() {
 
@@ -15,6 +15,11 @@ function App() {
 
   const [posts, setPosts] = useState([])
   const [formData, setFormData] = useState(initialFormData)
-}
+
+  const fetchPosts = () =>
+    axios.get(`${baseApiUrl}/posts`).then((res) => setPosts(res.data));
+
+  return
+};
 
 export default App;
