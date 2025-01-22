@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import axios from ('axios');
+import axios from 'axios';
 
 function App() {
 
@@ -16,6 +16,7 @@ function App() {
   const [posts, setPosts] = useState([])
   const [formData, setFormData] = useState(initialFormData)
 
+  //fetch
   const fetchPosts = () =>
     axios.get(`${baseApiUrl}/posts`).then((res) => setPosts(res.data));
 
@@ -33,7 +34,18 @@ function App() {
         fetchPosts()
         setFormData(initialFormData)
       })
+  };
+
+  const deleteHandler = (id) => {
+    axios.delete(`${baseApiUrl}/posts/${id}`)
+      .then(() => {
+        fetchPosts();
+      });
   }
+
+  const imgErrHand = (e) => {
+    e.target.src = "https://picsum.photos/id/237/200/300";
+  };
 
   //use effect di fetch post
   useEffect(() => {
